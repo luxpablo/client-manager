@@ -1,0 +1,144 @@
+{
+  "users": [
+    {
+      "id": "user-admin",
+      "username": "admin",
+      "passwordHash": "admin123",
+      "name": "Admin",
+      "role": "Admin",
+      "status": "Active",
+      "twoFactorEnabled": false,
+      "createdAt": "2026-06-30T13:42:19.973Z"
+    }
+  ],
+  "customers": [],
+  "services": [],
+  "invoices": [],
+  "payments": [],
+  "servers": [],
+  "providers": [],
+  "tickets": [],
+  "expenses": [],
+  "domains": [],
+  "assets": [],
+  "activityLogs": [
+    {
+      "id": "log-1782903976791",
+      "staffName": "Admin",
+      "action": "Staff Logged In",
+      "details": "Successfully logged in.",
+      "ipAddress": "::1",
+      "timestamp": "2026-07-01T11:06:16.791Z"
+    },
+    {
+      "id": "log-1782829567810",
+      "staffName": "Admin",
+      "action": "Staff Logged In",
+      "details": "Successfully logged in.",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-30T14:26:07.810Z"
+    },
+    {
+      "id": "log-1782828148538",
+      "staffName": "Admin",
+      "action": "Staff Logged In",
+      "details": "Successfully logged in.",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-30T14:02:28.538Z"
+    },
+    {
+      "id": "log-1782828143703",
+      "staffName": "Admin",
+      "action": "Staff Logged In",
+      "details": "Successfully logged in.",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-30T14:02:23.703Z"
+    },
+    {
+      "id": "log-1782827901798",
+      "staffName": "Admin",
+      "action": "Staff Logged In",
+      "details": "Successfully logged in.",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-30T13:58:21.798Z"
+    },
+    {
+      "id": "log-1782827875747",
+      "staffName": "Admin",
+      "action": "Backup Created",
+      "details": "Executed manual database snapshot backup. Downloaded state archive.",
+      "ipAddress": "127.0.0.1",
+      "timestamp": "2026-06-30T13:57:55.747Z"
+    },
+    {
+      "id": "log-1782827849203",
+      "staffName": "Admin",
+      "action": "Staff Logged In",
+      "details": "Successfully logged in.",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-30T13:57:29.203Z"
+    },
+    {
+      "id": "log-1782827677587",
+      "staffName": "Admin",
+      "action": "Settings Updated",
+      "details": "System configuration updated.",
+      "ipAddress": "127.0.0.1",
+      "timestamp": "2026-06-30T13:54:37.587Z"
+    },
+    {
+      "id": "log-1782827584862",
+      "staffName": "Admin",
+      "action": "Settings Updated",
+      "details": "System configuration updated.",
+      "ipAddress": "127.0.0.1",
+      "timestamp": "2026-06-30T13:53:04.862Z"
+    },
+    {
+      "id": "log-1782827507040",
+      "staffName": "Admin",
+      "action": "Settings Updated",
+      "details": "System configuration updated.",
+      "ipAddress": "127.0.0.1",
+      "timestamp": "2026-06-30T13:51:47.040Z"
+    },
+    {
+      "id": "log-1782827066557",
+      "staffName": "Admin",
+      "action": "Settings Updated",
+      "details": "System configuration updated.",
+      "ipAddress": "127.0.0.1",
+      "timestamp": "2026-06-30T13:44:26.557Z"
+    },
+    {
+      "id": "log-1782827062303",
+      "staffName": "Admin",
+      "action": "Settings Updated",
+      "details": "System configuration updated.",
+      "ipAddress": "127.0.0.1",
+      "timestamp": "2026-06-30T13:44:22.303Z"
+    }
+  ],
+  "notifications": [],
+  "settings": {
+    "companyName": "My Company",
+    "invoicePrefix": "INV-",
+    "currency": "USD",
+    "timeZone": "UTC",
+    "emailTemplate": "Dear {customer_name},\n\nService {service_type} ({plan_name}) has been setup.\n\nIP: {ipv4}\nUser: {username}\n\nBest,\n{company_name}",
+    "reminderTemplate": "Dear {customer_name},\n\nYour {service_type} ({plan_name}) renews on {renewal_date} ({countdown} days).\n\nInvoice {invoice_number}: {amount}\n\nBest,\n{company_name}",
+    "integrations": {
+      "paymenter": {
+        "baseUrl": "https://billing.zyphron.cloud/",
+        "apiKey": "PAYM5c26a5154af38caa3d9c96d1ec68510d4ca4a63dd20238fee2a6c6218bb56076",
+        "enabled": true
+      },
+      "pterodactyl": {
+        "baseUrl": "https://console.zyphron.cloud/",
+        "apiKey": "ptla_qa3OM8ygWAAn2CHWDviGVoeOhhOZVMdhS8va2Wx9TUf",
+        "enabled": true
+      }
+    },
+    "apiKeys": []
+  }
+}

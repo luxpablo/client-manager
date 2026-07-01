@@ -1,0 +1,36 @@
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.31.167:3000
+- Environments: .env
+✓ Ready in 380ms
+
+ GET /api/admin/customers 200 in 700ms (next.js: 643ms, application-code: 57ms)
+ GET /api/admin/invoices 200 in 701ms (next.js: 640ms, application-code: 62ms)
+ GET /api/admin/services 200 in 707ms (next.js: 639ms, application-code: 68ms)
+ GET /api/admin/logs 200 in 713ms (next.js: 639ms, application-code: 73ms)
+ GET /api/admin/notifications 200 in 720ms (next.js: 639ms, application-code: 81ms)
+ GET /api/admin/servers 200 in 731ms (next.js: 639ms, application-code: 92ms)
+ GET /api/admin/expenses 200 in 30ms (next.js: 13ms, application-code: 17ms)
+ GET /api/admin/domains 200 in 32ms (next.js: 18ms, application-code: 15ms)
+ GET /api/admin/assets 200 in 34ms (next.js: 23ms, application-code: 11ms)
+ GET / 200 in 521ms (next.js: 108ms, application-code: 413ms)
+ GET /api/auth/me 200 in 34ms (next.js: 26ms, application-code: 8ms)
+ GET /api/admin/customers 200 in 28ms (next.js: 11ms, application-code: 17ms)
+ GET /api/admin/services 200 in 29ms (next.js: 14ms, application-code: 15ms)
+ GET /api/admin/servers 200 in 32ms (next.js: 19ms, application-code: 13ms)
+ GET /api/admin/invoices 200 in 48ms (next.js: 34ms, application-code: 14ms)
+ GET /api/admin/logs 200 in 29ms (next.js: 16ms, application-code: 13ms)
+ GET /api/admin/notifications 200 in 30ms (next.js: 18ms, application-code: 12ms)
+ GET /api/admin/expenses 200 in 12ms (next.js: 2ms, application-code: 10ms)
+ GET /api/admin/domains 200 in 17ms (next.js: 7ms, application-code: 10ms)
+ GET /api/admin/assets 200 in 20ms (next.js: 13ms, application-code: 6ms)
+ GET /api/admin/customers 200 in 30ms (next.js: 9ms, application-code: 21ms)
+ GET /api/admin/services 200 in 31ms (next.js: 14ms, application-code: 17ms)
+ GET /api/admin/servers 200 in 33ms (next.js: 18ms, application-code: 15ms)
+ GET /api/admin/invoices 200 in 34ms (next.js: 21ms, application-code: 13ms)
+ GET /api/admin/logs 200 in 41ms (next.js: 25ms, application-code: 16ms)
+ GET /api/admin/notifications 200 in 19ms (next.js: 13ms, application-code: 6ms)
+ GET /api/admin/expenses 200 in 8ms (next.js: 1794µs, application-code: 7ms)
+ GET /api/admin/domains 200 in 13ms (next.js: 5ms, application-code: 9ms)
+ GET /api/admin/assets 200 in 16ms (next.js: 9ms, application-code: 7ms)
+[?25h
