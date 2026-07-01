@@ -1,7 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-const DB_FILE = path.join(process.cwd(), 'db.json');
+const IS_VERCEL = !!process.env.VERCEL;
+const DB_FILE = IS_VERCEL
+  ? '/tmp/db.json'
+  : path.join(process.cwd(), 'db.json');
+const BUNDLED_DB = path.join(process.cwd(), 'db.json');
 
 // ─── TypeScript Interfaces ───
 
@@ -272,22 +276,28 @@ const getInitialSeed = (): DatabaseSchema => {
 // ─── JSON Database Helpers ───
 
 export const readDb = (): DatabaseSchema => {
+  if (IS_VERCEL && !fs.existsSync(DB_FILE) && fs.existsSync(BUNDLED_DB)) {
+    const bundled = fs.readFileSync(BUNDLED_DB, 'utf8');
+    try { fs.mkdirSync('/tmp', { recursive: true }); } catch {}
+    fs.writeFileSync(DB_FILE, bundled, 'utf8');
+    return JSON.parse(bundled) as DatabaseSchema;
+  }
   if (!fs.existsSync(DB_FILE)) {
     const seed = getInitialSeed();
-    fs.writeFileSync(DB_FILE, JSON.stringify(seed, null, 2), 'utf8');
+    try { fs.writeFileSync(DB_FILE, JSON.stringify(seed, null, 2), 'utf8'); } catch {}
     return seed;
   }
   try {
     return JSON.parse(fs.readFileSync(DB_FILE, 'utf8')) as DatabaseSchema;
   } catch {
     const seed = getInitialSeed();
-    fs.writeFileSync(DB_FILE, JSON.stringify(seed, null, 2), 'utf8');
+    try { fs.writeFileSync(DB_FILE, JSON.stringify(seed, null, 2), 'utf8'); } catch {}
     return seed;
   }
 };
 
 export const writeDb = (data: DatabaseSchema): void => {
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf8');
+  try { fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf8'); } catch {}
 };
 
 // ─── Logger ───
