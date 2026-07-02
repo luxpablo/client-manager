@@ -200,6 +200,25 @@ export interface Asset {
   notes?: string;
 }
 
+export interface PricingPlan {
+  id: string;
+  name: string;
+  type: string;
+  description: string;
+  monthlyPrice: number;
+  yearlyPrice: number;
+  setupFee: number;
+  features: string[];
+  popular: boolean;
+  status: 'Active' | 'Hidden';
+  createdAt: string;
+}
+
+export interface PaymentGatewaySettings {
+  cashfree?: { appId: string; secretKey: string; enabled: boolean; mode: 'sandbox' | 'live' };
+  paypal?: { clientId: string; secret: string; enabled: boolean; mode: 'sandbox' | 'live' };
+}
+
 export interface SystemSettings {
   companyName: string;
   logoUrl?: string;
@@ -231,6 +250,7 @@ export interface SystemSettings {
     baseUrl: string;
     enabled: boolean;
   };
+  paymentGateways?: PaymentGatewaySettings;
 }
 
 export interface DatabaseSchema {
@@ -245,6 +265,7 @@ export interface DatabaseSchema {
   expenses: Expense[];
   domains: Domain[];
   assets: Asset[];
+  pricingPlans: PricingPlan[];
   activityLogs: ActivityLog[];
   notifications: SystemNotification[];
   settings: SystemSettings;
@@ -267,6 +288,7 @@ const getInitialSeed = (): DatabaseSchema => {
     expenses: [],
     domains: [],
     assets: [],
+    pricingPlans: [],
     activityLogs: [],
     notifications: [],
     settings: {
@@ -277,6 +299,7 @@ const getInitialSeed = (): DatabaseSchema => {
       integrations: { paymenter: { baseUrl: '', apiKey: '', enabled: false }, pterodactyl: { baseUrl: '', apiKey: '', enabled: false } },
       apiKeys: [],
       ai: { provider: 'demo', apiKey: '', model: 'gpt-4o-mini', baseUrl: 'https://api.openai.com/v1', enabled: true },
+      paymentGateways: { cashfree: { appId: '', secretKey: '', enabled: false, mode: 'sandbox' }, paypal: { clientId: '', secret: '', enabled: false, mode: 'sandbox' } },
     },
   };
 };

@@ -253,6 +253,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ e
       case 'expenses': { db.expenses = db.expenses.filter(e => e.id !== id); writeDb(db); return NextResponse.json({ success: true }); }
       case 'domains': { db.domains = db.domains.filter(d => d.id !== id); writeDb(db); return NextResponse.json({ success: true }); }
       case 'assets': { db.assets = db.assets.filter(a => a.id !== id); writeDb(db); return NextResponse.json({ success: true }); }
+      case 'pricingPlans': { db.pricingPlans = db.pricingPlans.filter(p => p.id !== id); writeDb(db); return NextResponse.json({ success: true }); }
       case 'users': {
         if (!['Founder', 'Admin'].includes(user.role)) return NextResponse.json({ error: 'Only Founder/Admin' }, { status: 403 });
         const uItem = db.users.find(u => u.id === id);

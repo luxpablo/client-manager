@@ -33,6 +33,7 @@ import KanbanBoard from '@/components/KanbanBoard';
 import ApiConsole from '@/components/ApiConsole';
 import PaymenterTab from '@/components/PaymenterTab';
 import PterodactylTab from '@/components/PterodactylTab';
+import PricingTab from '@/components/PricingTab';
 import RecordsTab from '@/components/RecordsTab';
 import AIAssistant from '@/components/AIAssistant';
 import { Customer, Service, Server as ServerType, Invoice, ActivityLog, SystemNotification, Expense, Domain, Asset, ProviderRecord } from '@/lib/db';
@@ -635,6 +636,7 @@ export default function AppHome() {
                 <PterodactylTab userRole={user.role} onLogAction={logAuditAction} />
               )}
 
+              {activeTab === 'pricing' && <PricingTab />}
               {activeTab === 'api' && <ApiConsole />}
 
               {activeTab === 'records' && (

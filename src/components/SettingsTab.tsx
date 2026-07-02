@@ -20,7 +20,10 @@ import {
   Plug,
   Wifi,
   Bot,
-  Sparkles
+  Sparkles,
+  CreditCard,
+  ToggleLeft,
+  ToggleRight
 } from 'lucide-react';
 import { SystemSettings } from '@/lib/db';
 
@@ -205,6 +208,10 @@ export default function SettingsTab({ userRole, onLogAction }: SettingsTabProps)
 
       {['Founder', 'Admin'].includes(userRole) && settings && (
         <AIConfigSection settings={settings} onLogAction={onLogAction} fetchSettings={fetchSettings} />
+      )}
+
+      {['Founder', 'Admin'].includes(userRole) && settings && (
+        <PaymentGatewaysSection settings={settings} onLogAction={onLogAction} fetchSettings={fetchSettings} />
       )}
 
       {['Founder', 'Admin'].includes(userRole) && settings && (
@@ -575,6 +582,90 @@ function AIConfigSection({ settings, onLogAction, fetchSettings }: { settings: S
 
       <button onClick={saveAI} className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition flex items-center gap-2">
         <Save className="w-3.5 h-3.5" /> Save AI Settings
+      </button>
+    </div>
+  );
+}
+
+function PaymentGatewaysSection({ settings, onLogAction, fetchSettings }: { settings: SystemSettings; onLogAction: (a: string, d: string) => void; fetchSettings: () => void }) {
+  const { toast } = useToast();
+  const [cashfree, setCashfree] = useState(settings.paymentGateways?.cashfree || { enabled: false, appId: '', secretKey: '', mode: 'sandbox' });
+  const [paypal, setPaypal] = useState(settings.paymentGateways?.paypal || { enabled: false, clientId: '', secret: '', mode: 'sandbox' });
+  const [saving, setSaving] = useState(false);
+
+  const saveGateways = async () => {
+    setSaving(true);
+    try {
+      const res = await fetch('/api/admin/settings', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'updatePaymentGateways',
+          paymentGateways: { cashfree, paypal },
+        }),
+      });
+      if (res.ok) {
+        toast('success', 'Payment gateway settings saved');
+        onLogAction('Update Payment Gateways', `Cashfree: ${cashfree.enabled ? 'Enabled' : 'Disabled'}, PayPal: ${paypal.enabled ? 'Enabled' : 'Disabled'}`);
+        fetchSettings();
+      } else { toast('error', 'Failed to save payment gateway settings'); }
+    } catch { toast('error', 'Failed to save payment gateway settings'); }
+    finally { setSaving(false); }
+  };
+
+  return (
+    <div className="bg-background border border-border rounded-2xl p-5 shadow-lg mb-6">
+      <div className="flex items-center gap-3 mb-4">
+        <CreditCard className="w-5 h-5 text-blue-400" />
+        <h2 className="text-sm font-bold text-white uppercase tracking-wide">Payment Gateways</h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-xs font-bold text-white">Cashfree</h3>
+            <button onClick={() => { setCashfree({ ...cashfree, enabled: !cashfree.enabled }); }}
+              className={`p-1 rounded transition cursor-pointer ${cashfree.enabled ? 'text-emerald-400' : 'text-zinc-600'}`}>
+              {cashfree.enabled ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
+            </button>
+          </div>
+          <div className="space-y-2">
+            <select value={cashfree.mode} onChange={e => setCashfree({ ...cashfree, mode: e.target.value as 'sandbox' | 'live' })}
+              className="w-full p-2 bg-muted border border-border rounded-lg text-xs text-zinc-300">
+              <option value="sandbox">Sandbox (Test)</option>
+              <option value="live">Live (Production)</option>
+            </select>
+            <input type="text" value={cashfree.appId} onChange={e => setCashfree({ ...cashfree, appId: e.target.value })}
+              placeholder="App ID (Client ID)" className="w-full p-2 bg-muted border border-border rounded-lg text-xs text-white font-mono" />
+            <input type="password" value={cashfree.secretKey} onChange={e => setCashfree({ ...cashfree, secretKey: e.target.value })}
+              placeholder="Secret Key" className="w-full p-2 bg-muted border border-border rounded-lg text-xs text-white font-mono" />
+          </div>
+        </div>
+
+        <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-xs font-bold text-white">PayPal</h3>
+            <button onClick={() => { setPaypal({ ...paypal, enabled: !paypal.enabled }); }}
+              className={`p-1 rounded transition cursor-pointer ${paypal.enabled ? 'text-emerald-400' : 'text-zinc-600'}`}>
+              {paypal.enabled ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
+            </button>
+          </div>
+          <div className="space-y-2">
+            <select value={paypal.mode} onChange={e => setPaypal({ ...paypal, mode: e.target.value as 'sandbox' | 'live' })}
+              className="w-full p-2 bg-muted border border-border rounded-lg text-xs text-zinc-300">
+              <option value="sandbox">Sandbox (Test)</option>
+              <option value="live">Live (Production)</option>
+            </select>
+            <input type="text" value={paypal.clientId} onChange={e => setPaypal({ ...paypal, clientId: e.target.value })}
+              placeholder="Client ID" className="w-full p-2 bg-muted border border-border rounded-lg text-xs text-white font-mono" />
+            <input type="password" value={paypal.secret} onChange={e => setPaypal({ ...paypal, secret: e.target.value })}
+              placeholder="Secret" className="w-full p-2 bg-muted border border-border rounded-lg text-xs text-white font-mono" />
+          </div>
+        </div>
+      </div>
+
+      <button onClick={saveGateways} disabled={saving}
+        className="mt-4 px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition flex items-center gap-2 cursor-pointer disabled:opacity-50">
+        <Save className="w-3.5 h-3.5" /> {saving ? 'Saving...' : 'Save Payment Gateway Settings'}
       </button>
     </div>
   );

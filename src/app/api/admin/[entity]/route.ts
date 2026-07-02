@@ -121,6 +121,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ enti
       case 'notifications': return NextResponse.json(db.notifications);
       case 'settings': return NextResponse.json(db.settings);
       case 'users': return NextResponse.json(db.users.map(u => ({ id: u.id, username: u.username, name: u.name, role: u.role, status: u.status, twoFactorEnabled: u.twoFactorEnabled, createdAt: u.createdAt })));
+      case 'pricingPlans': return NextResponse.json(db.pricingPlans);
       default: return NextResponse.json({ error: 'Not Found' }, { status: 404 });
     }
   } catch (error) {
@@ -203,6 +204,17 @@ export async function POST(request: Request, { params }: { params: Promise<{ ent
         db.users.push(item);
         writeDb(db); logAction(user.name, 'Staff Created', `Created ${item.name}.`);
         return NextResponse.json({ id: item.id, username: item.username, name: item.name, role: item.role });
+      }
+      case 'settings': {
+        Object.assign(db.settings, body);
+        writeDb(db); logAction(user.name, 'Settings Updated', 'System configuration updated.');
+        return NextResponse.json({ success: true });
+      }
+      case 'pricingPlans': {
+        const plan: any = { id: `plan-${Date.now()}`, name: body.name, type: body.type || 'shared', description: body.description || '', monthlyPrice: Number(body.monthlyPrice) || 0, yearlyPrice: Number(body.yearlyPrice) || 0, setupFee: Number(body.setupFee) || 0, features: body.features || [], popular: !!body.popular, status: body.status || 'Active', createdAt: new Date().toISOString() };
+        db.pricingPlans.push(plan);
+        writeDb(db);
+        return NextResponse.json(plan);
       }
       case 'logs': { logAction(user.name, body.action, body.details); return NextResponse.json({ success: true }); }
       default: return NextResponse.json({ error: 'Not Found' }, { status: 404 });

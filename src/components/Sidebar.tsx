@@ -27,7 +27,8 @@ import {
   Disc3,
   Database,
   X,
-  Menu
+  Menu,
+  Tags
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -70,6 +71,7 @@ export default function Sidebar({
     { id: 'assets', name: 'Assets', icon: Monitor, roles: ['Founder', 'Admin'] },
     { id: 'records', name: 'Master Records', icon: Database, roles: ['Founder', 'Admin', 'Billing'] },
     { id: 'logs', name: 'Activity Audit', icon: ScrollText, roles: ['Founder', 'Admin'] },
+    { id: 'pricing', name: 'Pricing', icon: Tags, roles: ['Founder', 'Admin'] },
     { id: 'paymenter', name: 'Paymenter', icon: CreditCard, roles: ['Founder', 'Admin'] },
     { id: 'pterodactyl', name: 'Pterodactyl', icon: Disc3, roles: ['Founder', 'Admin'] },
     { id: 'api', name: 'API Console', icon: Terminal, roles: ['Founder', 'Admin'] },
