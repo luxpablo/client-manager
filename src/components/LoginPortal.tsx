@@ -146,10 +146,13 @@ export default function LoginPortal({ onLoginSuccess }: LoginPortalProps) {
         </form>
 
         {/* Default login hint */}
-        <div className="mt-8 pt-6 border-t border-border/50 text-center">
+        <div className="mt-6 pt-5 border-t border-border/50 text-center space-y-2">
           <p className="text-[11px] text-muted-foreground/70 font-semibold uppercase tracking-wider">
-            Default: <span className="text-blue-400 font-mono">admin</span> / <span className="text-blue-400 font-mono">admin123</span>
+            Demo: <span className="text-blue-400 font-mono">admin</span> / <span className="text-blue-400 font-mono">admin123</span>
           </p>
+          <a href="/api/auth/demo" className="inline-block text-[10px] text-cyan-400 hover:text-cyan-300 font-semibold uppercase tracking-wider transition">
+            Auto-fill & sign in instantly →
+          </a>
         </div>
       </div>
     </div>

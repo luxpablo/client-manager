@@ -259,9 +259,9 @@ export default function LandingPage() {
                 Zyphron Cloud Management System — unified control panel for billing, servers, domains, support, and business analytics. Replace spreadsheets with automation.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button onClick={() => setAuthModal('signup')} className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl transition shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 flex items-center gap-2 group cursor-pointer">
-                  Get Started <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
-                </button>
+                <a href="/api/auth/demo" className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl transition shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 flex items-center gap-2 group">
+                  Launch Demo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+                </a>
                 <a href="#features" className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 font-semibold text-sm rounded-xl transition flex items-center gap-2">
                   Explore Features <ChevronDown className="w-4 h-4" />
                 </a>
@@ -421,7 +421,7 @@ export default function LandingPage() {
           </div>
 
           <div className="mt-10 text-center">
-            <a href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl transition shadow-lg shadow-blue-600/20 group">
+            <a href="/api/auth/demo" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl transition shadow-lg shadow-blue-600/20 group">
               Explore the Full Dashboard <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition" />
             </a>
           </div>
@@ -591,8 +591,21 @@ export default function LandingPage() {
                 <div className="flex-1 h-px bg-border/50" />
               </div>
 
+              <div className="p-2.5 bg-blue-950/20 border border-blue-500/20 rounded-lg">
+                <p className="text-[10px] text-blue-300 font-semibold text-center">
+                  🔐 Demo mode — <a href="/api/auth/demo" className="underline hover:text-blue-200">sign in instantly</a> or use <span className="font-mono">admin</span> / <span className="font-mono">admin123</span>
+                </p>
+              </div>
+
               {authError && (
                 <div className="p-2.5 bg-red-950/20 border border-red-500/20 rounded-lg text-[10px] text-red-300 font-mono text-center">{authError}</div>
+              )}
+
+              {isSignIn && (
+                <button type="button" onClick={() => { setAuthEmail('admin'); setAuthPassword('admin123'); }}
+                  className="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg text-[10px] text-zinc-500 hover:text-zinc-300 font-mono transition cursor-pointer">
+                  ↩ Auto-fill demo credentials
+                </button>
               )}
 
               <form onSubmit={isSignIn ? handleSignIn : handleSignUp} className="space-y-3">
