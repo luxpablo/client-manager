@@ -391,39 +391,164 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Dashboard Showcase Preview */}
+      {/* Dashboard Preview Mockups */}
       <section id="showcase" className="relative z-10 py-20 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Console{' '}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 text-transparent bg-clip-text">Preview</span>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Dashboard{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 text-transparent bg-clip-text">Previews</span>
             </h2>
-            <p className="text-sm text-zinc-500 max-w-xl mx-auto">A glimpse at the tools and interfaces available inside ZCMS.</p>
+            <p className="text-sm text-zinc-500 max-w-xl mx-auto">Real interfaces from inside the ZCMS console.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { icon: BarChart3, label: 'Revenue Analytics', desc: '6-month revenue curves with MRR tracking, profit margins, and growth percentage.' },
-              { icon: Users, label: 'Customer Management', desc: 'Full customer profiles, service history, invoice ledger, ticket threads, and spending.' },
-              { icon: Grid3X3, label: 'Kanban Support', desc: 'Drag-and-drop ticket board with priority sorting, customer context, and status tracking.' },
-              { icon: Calendar, label: 'Unified Calendar', desc: 'All renewals, payment due dates, and domain expirations in one timeline view.' },
-              { icon: Database, label: 'Master Records', desc: '17-column joined view of customers, services, and invoices with CSV export.' },
-              { icon: Shield, label: 'Role-Based Access', desc: 'Founder, Admin, Billing, Support, and Moderator roles with granular permissions.' },
-            ].map((item, i) => (
-              <div key={i} className="p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-blue-500/20 transition-all duration-300">
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-600/20 to-cyan-500/20 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-3">
-                  <item.icon className="w-4.5 h-4.5" />
+          {/* Preview 1 - Overview Stats */}
+          <div className="rounded-2xl border border-white/10 overflow-hidden mb-6 group hover:border-blue-500/30 transition-all duration-500">
+            <div className="bg-[#0a0720] p-4 sm:p-6">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-500/60" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/60" />
                 </div>
-                <h3 className="text-sm font-bold text-white mb-1.5">{item.label}</h3>
-                <p className="text-[10px] text-zinc-500 leading-relaxed">{item.desc}</p>
+                <span className="text-[10px] text-zinc-600 font-mono ml-2">overview.tsx — Dashboard Overview</span>
               </div>
-            ))}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { label: 'Total Revenue', value: '$84,250', change: '+12.5%', up: true },
+                  { label: 'Active Customers', value: '1,847', change: '+8.2%', up: true },
+                  { label: 'Pending Invoices', value: '23', change: '-3.1%', up: false },
+                  { label: 'Open Tickets', value: '12', change: '-2', up: true },
+                ].map((s, i) => (
+                  <div key={i} className="bg-white/[0.03] border border-white/5 rounded-xl p-4">
+                    <p className="text-[10px] text-zinc-500 font-mono mb-1">{s.label}</p>
+                    <p className="text-xl font-bold text-white">{s.value}</p>
+                    <p className={`text-[10px] font-mono mt-1 ${s.up ? 'text-emerald-400' : 'text-red-400'}`}>{s.change}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 h-20 bg-white/[0.02] border border-white/5 rounded-xl flex items-end gap-1 px-3 py-2">
+                {[40, 55, 45, 70, 60, 80, 65, 75, 90, 85, 72, 95].map((h, i) => (
+                  <div key={i} className="flex-1 bg-gradient-to-t from-blue-600/40 to-cyan-500/30 rounded-t-sm" style={{ height: `${h}%` }} />
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="mt-10 text-center">
-            <a href="/api/auth/demo" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl transition shadow-lg shadow-blue-600/20 group">
-              Explore the Full Dashboard <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition" />
+          {/* Preview 2 - Customers Table */}
+          <div className="rounded-2xl border border-white/10 overflow-hidden mb-6 group hover:border-blue-500/30 transition-all duration-500">
+            <div className="bg-[#0a0720] p-4 sm:p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-500/60" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/60" />
+                </div>
+                <span className="text-[10px] text-zinc-600 font-mono ml-2">customers.tsx — Customer Records</span>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead>
+                    <tr className="border-b border-white/5 text-zinc-500 font-mono text-[10px] uppercase tracking-wider">
+                      <th className="pb-2 pr-4">Name</th>
+                      <th className="pb-2 pr-4">Email</th>
+                      <th className="pb-2 pr-4">Status</th>
+                      <th className="pb-2 pr-4">Spending</th>
+                      <th className="pb-2">Services</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      ['Acme Corp', 'contact@acme.com', 'Active', '$12,400', '3'],
+                      ['NovaHost LLC', 'billing@novahost.io', 'Active', '$8,920', '2'],
+                      ['PixelByte Inc', 'ops@pixelbyte.com', 'Suspended', '$3,150', '1'],
+                      ['CloudForge Ltd', 'admin@cloudforge.dev', 'Active', '$21,700', '5'],
+                      ['DataWave GmbH', 'info@datawave.de', 'Active', '$6,830', '2'],
+                    ].map((row, i) => (
+                      <tr key={i} className="border-b border-white/5 hover:bg-white/[0.02]">
+                        <td className="py-2.5 pr-4 text-white font-medium">{row[0]}</td>
+                        <td className="py-2.5 pr-4 text-zinc-400">{row[1]}</td>
+                        <td className="py-2.5 pr-4">
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${row[2] === 'Active' ? 'bg-emerald-950/30 text-emerald-400 border border-emerald-500/20' : 'bg-red-950/30 text-red-400 border border-red-500/20'}`}>{row[2]}</span>
+                        </td>
+                        <td className="py-2.5 pr-4 text-zinc-300 font-mono">{row[3]}</td>
+                        <td className="py-2.5 text-zinc-400 font-mono">{row[4]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {/* Preview 3 - Sidebar Navigation */}
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <div className="rounded-2xl border border-white/10 overflow-hidden group hover:border-blue-500/30 transition-all duration-500">
+              <div className="bg-[#0a0720] p-4 sm:p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500/60" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-500/60" />
+                  </div>
+                  <span className="text-[10px] text-zinc-600 font-mono ml-2">navigation — Sidebar Menu</span>
+                </div>
+                <div className="space-y-1">
+                  {['Dashboard', 'Customers', 'Services', 'Invoices', 'Renewals', 'Servers', 'Tickets', 'Settings'].map((item, i) => (
+                    <div key={i} className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs ${i === 0 ? 'bg-blue-600/10 text-blue-300 border border-blue-500/20' : 'text-zinc-400 hover:bg-white/[0.03]'}`}>
+                      <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-blue-400' : 'bg-zinc-600'}`} />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Preview 4 - Kanban Board */}
+            <div className="rounded-2xl border border-white/10 overflow-hidden group hover:border-blue-500/30 transition-all duration-500">
+              <div className="bg-[#0a0720] p-4 sm:p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500/60" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-500/60" />
+                  </div>
+                  <span className="text-[10px] text-zinc-600 font-mono ml-2">tickets.tsx — Kanban Board</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { title: 'Open', count: 4, color: 'bg-yellow-500/20 border-yellow-500/20' },
+                    { title: 'In Progress', count: 3, color: 'bg-blue-500/20 border-blue-500/20' },
+                    { title: 'Resolved', count: 8, color: 'bg-emerald-500/20 border-emerald-500/20' },
+                  ].map((col, i) => (
+                    <div key={i} className="bg-white/[0.02] rounded-lg p-2 border border-white/5">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[10px] font-semibold text-zinc-400">{col.title}</span>
+                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${col.color}`}>{col.count}</span>
+                      </div>
+                      {col.count > 0 && (
+                        <div className="space-y-1.5">
+                          <div className="bg-white/[0.03] rounded-lg p-2 border border-white/5">
+                            <p className="text-[10px] text-zinc-300 truncate">Server migration req.</p>
+                            <p className="text-[8px] text-zinc-600 font-mono mt-0.5">#TKT-{100 + i}</p>
+                          </div>
+                          <div className="bg-white/[0.03] rounded-lg p-2 border border-white/5">
+                            <p className="text-[10px] text-zinc-300 truncate">Billing discrepancy</p>
+                            <p className="text-[8px] text-zinc-600 font-mono mt-0.5">#TKT-{200 + i}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <a href="/api/auth/demo" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-base rounded-xl transition shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 group scale-100 hover:scale-105 transition-all duration-300">
+              Launch Live Demo <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition" />
             </a>
+            <p className="text-[10px] text-zinc-600 mt-3 font-mono">No account needed — instant access with demo credentials</p>
           </div>
         </div>
       </section>
