@@ -34,6 +34,7 @@ import ApiConsole from '@/components/ApiConsole';
 import PaymenterTab from '@/components/PaymenterTab';
 import PterodactylTab from '@/components/PterodactylTab';
 import RecordsTab from '@/components/RecordsTab';
+import AIAssistant from '@/components/AIAssistant';
 import { Customer, Service, Server as ServerType, Invoice, ActivityLog, SystemNotification, Expense, Domain, Asset, ProviderRecord } from '@/lib/db';
 
 export default function AppHome() {
@@ -649,6 +650,7 @@ export default function AppHome() {
           )}
         </div>
       </main>
+      <AIAssistant />
     </div>
   );
 }

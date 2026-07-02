@@ -7,7 +7,8 @@ import {
   Plus,
   Send,
   User,
-  X
+  X,
+  Sparkles
 } from 'lucide-react';
 import { Ticket, Customer } from '@/lib/db';
 import { useToast } from '@/components/Toaster';
@@ -231,14 +232,30 @@ export default function TicketsTab({ user, onLogAction, customers = [] }: Ticket
               </div>
 
               {activeTkt.status !== 'Closed' ? (
-                <form onSubmit={handleSendReply} className="p-3 bg-zinc-950/50 border-t border-border flex gap-3 items-center shrink-0">
+                <form onSubmit={handleSendReply} className="p-3 bg-zinc-950/50 border-t border-border flex gap-2 items-center shrink-0">
                   <textarea value={replyDraft} onChange={e => setReplyDraft(e.target.value)} rows={1} required
                     placeholder={`Reply as ${user.name}...`}
                     className="flex-1 px-4 py-2.5 bg-[#110e20] border border-border rounded-lg text-xs text-zinc-200 placeholder-zinc-500 resize-none h-10 max-h-20" />
-                  <button type="submit"
-                    className="p-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-lg transition shadow active:scale-95 cursor-pointer shrink-0">
-                    <Send className="w-4 h-4" />
-                  </button>
+                  <div className="flex gap-1.5">
+                    <button type="button" onClick={async () => {
+                      if (!activeTkt) return;
+                      const res = await fetch('/api/ai/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: `Write a professional support reply for this ticket: "${activeTkt.title}". Make it helpful and courteous. Keep it under 3 sentences.` }),
+                      });
+                      const data = await res.json();
+                      if (data.reply) setReplyDraft(data.reply.replace(/\*\*/g, ''));
+                    }}
+                      className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-white rounded-lg transition cursor-pointer shrink-0"
+                      title="AI-suggested reply">
+                      <Sparkles className="w-4 h-4" />
+                    </button>
+                    <button type="submit"
+                      className="p-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-lg transition shadow active:scale-95 cursor-pointer shrink-0">
+                      <Send className="w-4 h-4" />
+                    </button>
+                  </div>
                 </form>
               ) : (
                 <div className="p-4 bg-zinc-950/80 border-t border-border text-center text-xs text-muted-foreground/70 font-semibold uppercase tracking-widest shrink-0">

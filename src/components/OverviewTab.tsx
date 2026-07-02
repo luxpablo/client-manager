@@ -20,6 +20,7 @@ import {
   Settings
 } from 'lucide-react';
 import { Customer, Service, Server as ServerType, ActivityLog, Invoice } from '@/lib/db';
+import AIInsights from '@/components/AIInsights';
 
 interface OverviewTabProps {
   customers: Customer[];
@@ -383,6 +384,9 @@ export default function OverviewTab({
           </div>
         </div>
       </div>
+
+      {/* AI Insights */}
+      <AIInsights />
 
       {/* Quick Action Cards */}
       <div className="bg-background border border-border rounded-2xl p-5">

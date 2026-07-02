@@ -18,7 +18,9 @@ import {
   KeyRound,
   Link,
   Plug,
-  Wifi
+  Wifi,
+  Bot,
+  Sparkles
 } from 'lucide-react';
 import { SystemSettings } from '@/lib/db';
 
@@ -199,6 +201,10 @@ export default function SettingsTab({ userRole, onLogAction }: SettingsTabProps)
 
       {['Founder', 'Admin'].includes(userRole) && settings && (
         <IntegrationsSection settings={settings} onLogAction={onLogAction} fetchSettings={fetchSettings} />
+      )}
+
+      {['Founder', 'Admin'].includes(userRole) && settings && (
+        <AIConfigSection settings={settings} onLogAction={onLogAction} fetchSettings={fetchSettings} />
       )}
 
       {['Founder', 'Admin'].includes(userRole) && settings && (
@@ -498,6 +504,78 @@ function IntegrationsSection({ settings, onLogAction, fetchSettings }: { setting
           <Save className="w-3.5 h-3.5" /> Save Integrations
         </button>
       </div>
+    </div>
+  );
+}
+
+function AIConfigSection({ settings, onLogAction, fetchSettings }: { settings: SystemSettings; onLogAction: (a: string, d: string) => void; fetchSettings: () => void }) {
+  const { toast } = useToast();
+  const [provider, setProvider] = useState(settings.ai?.provider || 'demo');
+  const [apiKey, setApiKey] = useState(settings.ai?.apiKey || '');
+  const [model, setModel] = useState(settings.ai?.model || 'gpt-4o-mini');
+  const [baseUrl, setBaseUrl] = useState(settings.ai?.baseUrl || 'https://api.openai.com/v1');
+  const [enabled, setEnabled] = useState(settings.ai?.enabled !== false);
+
+  const saveAI = async () => {
+    const res = await fetch('/api/admin/settings/all', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...settings, ai: { provider: provider as any, apiKey, model, baseUrl, enabled } })
+    });
+    if (res.ok) { toast('success', 'AI configuration saved.'); fetchSettings(); }
+    else { toast('error', 'Failed to save AI configuration.'); }
+  };
+
+  return (
+    <div className="bg-background border border-border rounded-2xl p-5 shadow-lg mb-6">
+      <div className="flex items-center gap-3 mb-4">
+        <Bot className="w-5 h-5 text-blue-400" />
+        <h2 className="text-sm font-bold text-white uppercase tracking-wide">AI Configuration</h2>
+      </div>
+      <p className="text-[10px] text-muted-foreground/70 mb-4">Configure the AI assistant. In demo mode, responses are generated from your local data without an API key.</p>
+
+      <div className="space-y-3 mb-4">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <input type="checkbox" checked={enabled} onChange={e => setEnabled(e.target.checked)} className="accent-blue-500" id="ai-enabled" />
+            <label htmlFor="ai-enabled" className="text-[11px] text-zinc-300">Enable AI Assistant</label>
+          </div>
+        </div>
+
+        <div>
+          <label className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider block mb-1">Provider</label>
+          <select value={provider} onChange={e => { setProvider(e.target.value as 'openai' | 'openrouter' | 'demo'); if (e.target.value === 'demo') setApiKey(''); }}
+            className="w-full max-w-xs p-2 bg-muted border border-border rounded-lg text-xs text-zinc-200">
+            <option value="demo">Demo Mode (no API key needed)</option>
+            <option value="openai">OpenAI</option>
+            <option value="openrouter">OpenRouter</option>
+          </select>
+        </div>
+
+        {provider !== 'demo' && (
+          <>
+            <div>
+              <label className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider block mb-1">API Key</label>
+              <input type="password" value={apiKey} onChange={e => setApiKey(e.target.value)}
+                className="w-full p-2 bg-muted border border-border rounded-lg text-xs text-zinc-200 font-mono" placeholder="sk-..." />
+            </div>
+            <div>
+              <label className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider block mb-1">Model</label>
+              <input type="text" value={model} onChange={e => setModel(e.target.value)}
+                className="w-full max-w-xs p-2 bg-muted border border-border rounded-lg text-xs text-zinc-200" placeholder="gpt-4o-mini" />
+            </div>
+            <div>
+              <label className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider block mb-1">API Base URL</label>
+              <input type="text" value={baseUrl} onChange={e => setBaseUrl(e.target.value)}
+                className="w-full p-2 bg-muted border border-border rounded-lg text-xs text-zinc-200 font-mono" />
+            </div>
+          </>
+        )}
+      </div>
+
+      <button onClick={saveAI} className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition flex items-center gap-2">
+        <Save className="w-3.5 h-3.5" /> Save AI Settings
+      </button>
     </div>
   );
 }

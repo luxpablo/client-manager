@@ -224,6 +224,13 @@ export interface SystemSettings {
   };
   webhookUrl?: string;
   apiKeys?: { name: string; key: string; permissions: string[] }[];
+  ai?: {
+    provider: 'openai' | 'openrouter' | 'demo';
+    apiKey: string;
+    model: string;
+    baseUrl: string;
+    enabled: boolean;
+  };
 }
 
 export interface DatabaseSchema {
@@ -269,6 +276,7 @@ const getInitialSeed = (): DatabaseSchema => {
       smtp: { host: '', port: 587, user: '', pass: '', fromName: 'My Company', fromEmail: '', secure: false },
       integrations: { paymenter: { baseUrl: '', apiKey: '', enabled: false }, pterodactyl: { baseUrl: '', apiKey: '', enabled: false } },
       apiKeys: [],
+      ai: { provider: 'demo', apiKey: '', model: 'gpt-4o-mini', baseUrl: 'https://api.openai.com/v1', enabled: true },
     },
   };
 };
