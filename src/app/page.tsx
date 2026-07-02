@@ -769,9 +769,9 @@ export default function LandingPage() {
                   <input type="text" value={authName} onChange={e => setAuthName(e.target.value)} placeholder="Full name" required
                     className="w-full px-3 py-2.5 bg-[#110e20] border border-border rounded-lg text-xs text-white placeholder-zinc-600 focus:border-blue-500/50 transition" />
                 )}
-                <input type="email" value={authEmail} onChange={e => setAuthEmail(e.target.value)} placeholder="Email address" required
+                  <input type="text" value={authEmail} onChange={e => setAuthEmail(e.target.value)} placeholder={isSignIn ? 'Username (admin)' : 'Email address'} required
                   className="w-full px-3 py-2.5 bg-[#110e20] border border-border rounded-lg text-xs text-white placeholder-zinc-600 focus:border-blue-500/50 transition" />
-                <input type="password" value={authPassword} onChange={e => setAuthPassword(e.target.value)} placeholder="Password" required minLength={6}
+                <input type="password" value={authPassword} onChange={e => setAuthPassword(e.target.value)} placeholder={isSignIn ? 'Password (admin123)' : 'Password'} required minLength={6}
                   className="w-full px-3 py-2.5 bg-[#110e20] border border-border rounded-lg text-xs text-white placeholder-zinc-600 focus:border-blue-500/50 transition" />
                 <button type="submit" disabled={authLoading}
                   className="w-full py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition shadow-lg disabled:opacity-50 cursor-pointer">
