@@ -30,6 +30,7 @@ export interface Customer {
   name: string;
   companyName?: string;
   email: string;
+  passwordHash?: string;
   phone?: string;
   discord?: string;
   country: string;

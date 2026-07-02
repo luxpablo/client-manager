@@ -213,9 +213,10 @@ export default function LandingPage() {
 
           <div className="hidden md:flex items-center gap-6 text-xs text-zinc-400">
             <a href="#features" className="hover:text-white transition">Features</a>
+            <a href="#pricing" className="hover:text-white transition">Pricing</a>
             <a href="#showcase" className="hover:text-white transition">Showcase</a>
             <a href="#faq" className="hover:text-white transition">FAQ</a>
-            <a href="#tech" className="hover:text-white transition">Tech</a>
+            <a href="/portal" className="hover:text-white transition">Portal</a>
             <button onClick={() => setAuthModal('signin')} className="text-zinc-300 hover:text-white font-medium transition cursor-pointer">Sign In</button>
             <button onClick={() => setAuthModal('signup')} className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-semibold rounded-lg transition shadow-lg shadow-blue-600/20 cursor-pointer">
               Get Started <ArrowRight className="w-3.5 h-3.5 inline" />
@@ -230,9 +231,11 @@ export default function LandingPage() {
         {mobileMenu && (
           <div className="md:hidden bg-[#05030a]/95 backdrop-blur-xl border-b border-white/5 px-4 py-4 space-y-3 text-sm">
             <a href="#features" onClick={() => setMobileMenu(false)} className="block text-zinc-400 hover:text-white transition">Features</a>
+            <a href="#pricing" onClick={() => setMobileMenu(false)} className="block text-zinc-400 hover:text-white transition">Pricing</a>
             <a href="#showcase" onClick={() => setMobileMenu(false)} className="block text-zinc-400 hover:text-white transition">Showcase</a>
             <a href="#faq" onClick={() => setMobileMenu(false)} className="block text-zinc-400 hover:text-white transition">FAQ</a>
             <a href="#tech" onClick={() => setMobileMenu(false)} className="block text-zinc-400 hover:text-white transition">Tech</a>
+            <a href="/portal" onClick={() => setMobileMenu(false)} className="block text-zinc-400 hover:text-white transition">Client Portal</a>
             <button onClick={() => { setMobileMenu(false); setAuthModal('signin'); }} className="block w-full text-left text-zinc-300 hover:text-white transition cursor-pointer">Sign In</button>
             <button onClick={() => { setMobileMenu(false); setAuthModal('signup'); }} className="block w-full px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg text-center cursor-pointer">Get Started</button>
           </div>
@@ -259,11 +262,14 @@ export default function LandingPage() {
                 Zyphron Cloud Management System — unified control panel for billing, servers, domains, support, and business analytics. Replace spreadsheets with automation.
               </p>
               <div className="flex flex-wrap gap-4">
-                <a href="/api/auth/demo" className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl transition shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 flex items-center gap-2 group">
-                  Launch Demo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+                <a href="#pricing" className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl transition shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 flex items-center gap-2 group">
+                  Browse Plans <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
                 </a>
-                <a href="#features" className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 font-semibold text-sm rounded-xl transition flex items-center gap-2">
-                  Explore Features <ChevronDown className="w-4 h-4" />
+                <a href="/api/auth/demo" className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 font-semibold text-sm rounded-xl transition flex items-center gap-2">
+                  Admin Demo <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+                <a href="/portal" className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 font-semibold text-sm rounded-xl transition flex items-center gap-2">
+                  Client Portal <ChevronRight className="w-3.5 h-3.5" />
                 </a>
               </div>
               <div className="flex items-center gap-6 mt-8 text-xs text-zinc-500 font-mono">
@@ -576,6 +582,20 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section id="pricing" className="relative z-10 py-20 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Simple, Transparent{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 text-transparent bg-clip-text">Pricing</span>
+            </h2>
+            <p className="text-sm text-zinc-500 max-w-xl mx-auto">Choose the plan that fits your needs. All plans include 24/7 support and a 30-day satisfaction guarantee.</p>
+          </div>
+
+          <PricingCards onSelectPlan={() => setAuthModal('signup')} />
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section id="faq" className="relative z-10 py-20 border-t border-white/5">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -616,14 +636,14 @@ export default function LandingPage() {
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-[80px] -z-10" />
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Take Control?</h2>
             <p className="text-sm text-zinc-400 mb-8 max-w-lg mx-auto">Launch the ZCMS console to manage customers, billing, infrastructure, and support from a single dashboard.</p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a href="/dashboard" className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl transition shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 group">
-                Open Dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
-              </a>
-              <a href="#features" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 font-semibold text-sm rounded-xl transition">
-                <BookOpen className="w-4 h-4" /> Read Docs
-              </a>
-            </div>
+              <div className="flex flex-wrap justify-center gap-4">
+                <a href="/portal" className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl transition shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 group">
+                  Client Portal <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+                </a>
+                <a href="/dashboard" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 font-semibold text-sm rounded-xl transition">
+                  Admin Dashboard <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
           </div>
         </div>
       </section>
@@ -648,9 +668,11 @@ export default function LandingPage() {
               <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">Product</h4>
               <div className="space-y-2 text-[11px]">
                 <a href="#features" className="block text-zinc-500 hover:text-white transition">Features</a>
+                <a href="#pricing" className="block text-zinc-500 hover:text-white transition">Pricing</a>
                 <a href="#showcase" className="block text-zinc-500 hover:text-white transition">Showcase</a>
                 <a href="#tech" className="block text-zinc-500 hover:text-white transition">Tech Stack</a>
-                <a href="/dashboard" className="block text-zinc-500 hover:text-white transition">Dashboard</a>
+                <a href="/portal" className="block text-zinc-500 hover:text-white transition">Client Portal</a>
+                <a href="/dashboard" className="block text-zinc-500 hover:text-white transition">Admin Dashboard</a>
               </div>
             </div>
             <div>
@@ -710,9 +732,18 @@ export default function LandingPage() {
                 </a>
               </div>
 
+              <div className="grid grid-cols-2 gap-2 p-1 bg-white/[0.03] rounded-lg mb-2">
+                <a href="/portal" className="py-2 text-center text-[10px] font-bold text-blue-400 bg-blue-950/20 border border-blue-800/30 rounded-md hover:bg-blue-950/40 transition">
+                  Client Portal
+                </a>
+                <button type="button" onClick={() => { setAuthEmail('admin'); setAuthPassword('admin123'); }} className="py-2 text-center text-[10px] font-bold text-zinc-400 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 transition cursor-pointer">
+                  Staff Login
+                </button>
+              </div>
+
               <div className="flex items-center gap-3 text-[10px] text-muted-foreground/50">
                 <div className="flex-1 h-px bg-border/50" />
-                <span>or continue with email</span>
+                <span>or Staff Sign In</span>
                 <div className="flex-1 h-px bg-border/50" />
               </div>
 
@@ -772,6 +803,62 @@ export default function LandingPage() {
         .animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
         html { scroll-behavior: smooth; }
       `}</style>
+    </div>
+  );
+}
+
+function PricingCards({ onSelectPlan }: { onSelectPlan: () => void }) {
+  const [plans, setPlans] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/plans').then(r => r.json()).then(data => { setPlans(data); setLoading(false); }).catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return (
+    <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {[1, 2, 3].map(i => <div key={i} className="h-80 bg-white/[0.02] border border-white/5 rounded-2xl animate-pulse" />)}
+    </div>
+  );
+
+  if (plans.length === 0) return (
+    <div className="text-center py-12">
+      <p className="text-zinc-500 text-xs font-mono">Coming soon — pricing plans are being configured.</p>
+    </div>
+  );
+
+  return (
+    <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {plans.slice(0, 3).map((plan, i) => (
+        <div key={plan.id} className={`relative rounded-2xl p-6 border text-center transition hover:scale-[1.02] ${plan.popular ? 'border-blue-500 bg-blue-950/20 shadow-xl shadow-blue-600/10' : 'border-white/10 bg-white/[0.02]'}`}>
+          {plan.popular && (
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-[9px] font-bold rounded-full uppercase tracking-wider shadow-lg">
+              Most Popular
+            </span>
+          )}
+          <div className={`w-12 h-12 mx-auto rounded-xl bg-gradient-to-br ${plan.popular ? 'from-blue-600 to-cyan-500' : 'from-blue-600/20 to-cyan-500/20'} flex items-center justify-center mb-4`}>
+            <Server className={`w-6 h-6 ${plan.popular ? 'text-white' : 'text-blue-400'}`} />
+          </div>
+          <h3 className="text-lg font-bold text-white">{plan.name}</h3>
+          <p className="text-xs text-zinc-500 mt-1 mb-4">{plan.description}</p>
+          <p className="text-3xl font-bold text-white">${plan.monthlyPrice}<span className="text-xs text-zinc-500 font-mono">/mo</span></p>
+          {plan.yearlyPrice > 0 && <p className="text-[10px] text-zinc-600 mt-1">${plan.yearlyPrice}/year — save {Math.round((1 - plan.yearlyPrice / (plan.monthlyPrice * 12)) * 100)}%</p>}
+          {plan.setupFee > 0 && <p className="text-[10px] text-zinc-600">+ ${plan.setupFee} setup</p>}
+
+          <ul className="mt-6 space-y-3 text-left">
+            {plan.features.slice(0, 6).map((f: string, fi: number) => (
+              <li key={fi} className="flex items-center gap-2 text-xs text-zinc-400">
+                <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" /> {f}
+              </li>
+            ))}
+          </ul>
+
+          <button onClick={onSelectPlan}
+            className={`w-full mt-6 py-2.5 text-xs font-bold rounded-lg transition cursor-pointer ${plan.popular ? 'bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-lg' : 'bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white'}`}>
+            Get Started
+          </button>
+        </div>
+      ))}
     </div>
   );
 }
